@@ -10,18 +10,23 @@
  */
 class Solution {
 public:
+   // recursive sol
+    ListNode *reverse(ListNode *prev,ListNode *curr)
+    {
+        // base case
+        if(curr==NULL)
+         return prev;
+        // processing
+        ListNode *next=curr->next;
+        curr->next=prev;
+        return reverse(curr,next);
+    }
     ListNode* reverseList(ListNode* head) {
         ListNode *prev=NULL;
         ListNode *curr=head;
-        while(curr!=NULL)
-        {
-            ListNode *next=curr->next;
-            curr->next=prev;
-            prev=curr;
-            curr=next;
-            head =prev;
-        }
-        return head;
+        
+        
+        return reverse(prev,curr);
         
     }
 };
