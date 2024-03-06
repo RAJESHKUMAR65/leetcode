@@ -1,31 +1,28 @@
 class Solution {
 public:
+   int expand_around_index(string s,int i,int j)
+   { int count=0;
+       while(i>=0 && j<s.length() && s[i]==s[j])
+       {
+           count++;
+           i--;
+           j++;
+       }
+       return count;
+   }
     int countSubstrings(string s) {
-        int n = s.length();
-        vector<vector<bool>> palindrome(n, vector<bool>(n, false));
-        int ans = 0;
-
-        for (int i = 0; i < n; ++i) {
-            palindrome[i][i] = true;
-            ans++;
+        int count=0;
+        int n=s.length();
+        for(int i=0;i<n;i++)
+        {
+            //odd kei alag handle kiya
+            int oddcount=expand_around_index(s,i,i);
+            count=oddcount+count;
+            //even ka case alag handle kiya
+            int evencount=expand_around_index(s,i,i+1);
+            count=evencount + count;
         }
-
-        for (int i = 0; i < n - 1; ++i) {
-            if (s[i] == s[i + 1]) {
-                palindrome[i][i + 1] = true;
-                ans++;
-            }
-        }
-
-        for (int len = 3; len <= n; ++len) {
-            for (int i = 0; i < n - len + 1; ++i) {
-                if (s[i] == s[i + len - 1] && palindrome[i + 1][i + len - 2]) {
-                    palindrome[i][i + len - 1] = true;
-                    ans++;
-                }
-            }
-        }
-
-        return ans;
+        return count;
     }
+     
 };
