@@ -6,7 +6,7 @@ int vectors(vector<int> & nums,int g)
     for(head=0;head<nums.size();head++)
     {
         sum+=nums[head];
-        while(tail<=head and sum>g)
+        while(tail<=head && sum>g)
         {
             sum-=nums[tail];
             tail++;
