@@ -1,50 +1,25 @@
 class Solution {
 public:
-    int sum(vector<int> &nums,int start ,int end)
-    {
-        int sum=0;
-        
-        for(int i=start;i<=end;i++)
-        {
-          sum=sum+nums[i];
-        }
-        return sum;
-    }
     int pivotIndex(vector<int>& nums) {
-        int left=0;
-        int right=nums.size()-1;
-        int leftsum;
-        int rightsum;
-        for(int i=0;i<nums.size();i++)
-        {
-             if(i==0 )
-             {
-                leftsum=0;
-                rightsum=sum(nums,i+1,right);
-             }
-            else if(i==nums.size()-1)
-             {
-                rightsum=0;
-                leftsum=sum(nums,left,i-1);
-             }
-             else
-             {
-                leftsum=sum(nums,left,i-1);
-                rightsum=sum(nums,i+1,right);
-             
-             }
-                
- 
-            
-           if(leftsum==rightsum)
-           {
-            return i;
-           }
-
-        }
-       
+        int n=nums.size();
+        vector<int>leftsum(n,0);
+        vector<int> rightsum(n,0);
         
-            return -1;
-    
+        for(int i=1;i<n;i++)
+        {
+            leftsum[i]=leftsum[i-1]+nums[i-1];
+        }
+        for(int i=n-2;i>=0;i--)
+        {
+            rightsum[i]=rightsum[i+1]+nums[i+1];
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(leftsum[i]==rightsum[i])
+            {
+                return i;
+            }
+        }
+      return -1;
     }
 };
