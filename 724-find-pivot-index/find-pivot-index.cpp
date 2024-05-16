@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int sum(vector<int> nums,int start ,int end)
+    int sum(vector<int> &nums,int start ,int end)
     {
         int sum=0;
         
