@@ -1,72 +1,79 @@
 class Solution {
 public:
-    int binary_search(vector<int> arr,int target,int start , int end)
-{
-    
-    int mid=start + (end-start)/2;
-    while(start<=end)
-    { int element=arr[mid]; 
-       if(element==target)
+     int pivot(vector<int>& nums)
+     {
+        int n=nums.size();
+        int s=0;
+        int e=n-1;
+        int mid=s+(e-s)/2;
+        while(s<=e)
         {
-            return mid;
-             
-        }
-        else if(target<element)
-        {
-           end=mid-1;
-            
-        }
-        else{
-            start=mid+1;
-             
-        }
-        mid = start+(end-start)/2;
-    }
-    return -1;
-}
- int findpivot(vector<int> arr)
-{
-    int s=0;
-    int e=arr.size()-1;
-    int mid=s+(e-s)/2;
-    while(s<e)
-    {
-        if(mid+1<arr.size() && arr[mid]>arr[mid+1])
-        {
-            return mid;
+            if(s==e)
+            {
+                return s;
+            }
 
+            if(mid-1>=0 && nums[mid]<nums[mid-1] )
+            {
+               return mid-1;
+            }
+            else if(mid+1<n && nums[mid]>nums[mid+1]  )
+            {
+                return mid;
+            }
+            else if(nums[s]>nums[mid])
+            {
+                e=mid-1;
+            }
+            else{
+                s=mid+1;
+            }
+            mid=s+(e-s)/2;
         }
-        if(mid-1>0 && arr[mid-1]>arr[mid])
+        return -1;
+     }
+     int binarysearch(vector<int>& nums, int target,int s,int e)
+     {
+         
+        while(s<=e)
         {
-            return mid-1;
-        }
-        if(arr[s]>=arr[mid])
-        { 
-           e=mid-1;
+            int mid=s+(e-s)/2;
+            if(nums[mid]==target)
+            {
+                return mid;
+            }
 
+           else if(nums[mid]<target)
+            {
+                s=mid+1;
+            }
+            else
+            {
+                e=mid-1;
+            }
         }
-         if(arr[s]<arr[mid])
-        { 
-           s=mid;
 
-        }
-        mid=s+(e-s)/2;
-    }
-    return s;
-}
+        return -1;
+     }
     int search(vector<int>& nums, int target) {
-        int pivotindex=findpivot(nums);
-        if(target>=nums[0]&&target<=nums[pivotindex])
-        {
-            int ans=binary_search(nums,target,0,pivotindex);
-            return ans;
-        }
-        if(pivotindex+1<nums.size()&&target>=nums[pivotindex+1]&&target<=nums[nums.size()-1])
-        {
-            int ans=ans=binary_search(nums,target,pivotindex+1,nums.size()-1);
-            return ans;
-        }
-         return -1;
+        int pivotindex=pivot(nums);
+        int n=nums.size();
+       
+        
+         
+         if(target>=nums[0] && target<=nums[pivotindex])
+         {
+            return binarysearch(nums,target,0,pivotindex);
+         }
+        else
+         {
+            return binarysearch(nums,target,pivotindex+1,n-1);
+         }
+
+            return -1;
+        
     
+       
+
     }
 };
