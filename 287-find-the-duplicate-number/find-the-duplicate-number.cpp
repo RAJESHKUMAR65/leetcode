@@ -1,22 +1,14 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
+       // method to binay wala sahi hei
+       // matlab saab ko saabke sahi jaga pr paucha diya
+       while(nums[nums[0]]!=nums[0])
+       {
+        swap(nums[nums[0]],nums[0]);
+       } 
 
-        int ans=-1;
-        for(int i=0;i<nums.size();i++)
-        {
-             int index=abs(nums[i]);
-             //already visited hei kya
-             if(nums[index]<0)
-             {
-                ans=index;
-                break;
-             }
-             // visited mark kr rahe hei
 
-             nums[index]*=-1;
-        }
-
-        return ans;
+       return nums[0];
     }
 };
