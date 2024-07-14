@@ -20,7 +20,7 @@ public:
        }
 
         //step2:jaha jaha ans store raha waha dp mai store kro and dp return kro 
-        dp[n]=recSolve(n-1)+recSolve(n-2);
+        dp[n]=topDown(n-1,dp)+topDown(n-2,dp);
 
         return dp[n];
     }
