@@ -10,11 +10,8 @@ public:
     }
 
     int minEatingSpeed(vector<int>& piles, int h) {
-
-        long long maxi = *max_element(piles.begin(),piles.end());
         long long s = 0;
-        long long e = maxi+5;
-
+        long long e = 1e9;
         while(s+1<e){
             long long mid  = e -(e-s)/2;
             if(check(piles,h,mid)){
@@ -24,7 +21,6 @@ public:
                 s = mid;
             }
         }
-        return e;
-        
+        return e;  
   }
 };
