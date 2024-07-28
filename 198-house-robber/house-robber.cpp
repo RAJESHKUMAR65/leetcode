@@ -80,6 +80,34 @@ public:
     
     
    }
+
+   int solveUsingSpaceOptimisation(vector<int> &nums,int n){
+     //vector<int>dp(n+1,0);// yaha maximum amount chaye tum int_min bhi use
+    // kr skte ho pr int_min wala case alagsey solve krna padega
+    // question padenge toh zero bhi rakh skte hei
+
+    int prev2=0;
+    int prev1=nums[0];
+    int curr=0;
+
+    
+    //step3:0 sey n chalega
+    for(int i=1;i<=n;i++){
+        int temp=0;
+         if(i-2>=0){
+            temp=prev2;
+         }
+           int include=temp+nums[i];
+           int exclude=prev1+0;
+    // jaha answer store ho raha hei usko dp[] array mai kro
+          curr= max(include,exclude);
+          prev2=prev1;
+          prev1=curr;
+          
+    }
+    return prev1;// prev1
+
+   }
     int rob(vector<int>& nums) {
         
     //   return rec(nums,0);
@@ -93,7 +121,9 @@ public:
     //  vector<int>dp(n+1,-1);
     //  return solveUsingMemo(nums,n,dp);
 
-    return solveUsingTab(nums,n);
+    // return solveUsingTab(nums,n);
+
+    return solveUsingSpaceOptimisation(nums,n);
 
 
         
