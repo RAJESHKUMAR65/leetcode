@@ -16,7 +16,7 @@ function recursive(n,alice){
     }
 }
 var divisorGame = function(n) {
-    let alice=[0,1];
+    let alice=[false];
     recursive(n,alice);
     return alice[0];
 };
