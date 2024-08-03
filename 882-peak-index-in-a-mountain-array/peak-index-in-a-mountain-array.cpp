@@ -16,7 +16,7 @@ public:
                 s=mid+1;
             }
             else if((mid+1<n)  &&arr[mid]>arr[mid+1]){
-                e=mid-1;
+                e=mid;
             }
             mid=s+(e-s)/2;
 
