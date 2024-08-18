@@ -45,11 +45,31 @@ public:
     return (dp[n][target]%mod);
   
   }
+  int solveUsingtab(int n,int k ,int target){
+    vector<vector<int>>dp(n+1,vector<int>(target+1,0));
+    dp[0][0]=1;
+    for(int dice=1;dice<=n;dice++){
+        for(int j=1;j<=target;j++){
+            long long ans=0;
+           for(int i=1;i<=k;i++){
+            if(j-i>=0){
+                ans= (ans%mod+dp[dice-1][j-i]%mod )% mod;
+            }
+              
+           }
+          dp[dice][j]=ans;
+    
+        }
+        
+    }
+    return dp[n][target];
+  }
     int numRollsToTarget(int n, int k, int target) {
        vector<vector<int>>dp(n+1,vector<int>(target+1,-1));
     //   int ans=recursion(n,k,target);
     //   return ans;
-         long long ans=solveUsingMemo(n,k,target,dp);
-         return ans%mod;
+        //  
+    int ans=solveUsingtab(n, k,target);
+    return ans;
     }
 };
