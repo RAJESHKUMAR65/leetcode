@@ -6,7 +6,7 @@ public:
         int i=0;
         int j=1;
      
-        while(i<nums.size()&&j<nums.size()){
+        while(j<nums.size()){
             int diff=abs(nums[j]-nums[i]);
             if(diff==k){
                 ans.insert({nums[i],nums[j]});
