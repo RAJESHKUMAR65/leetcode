@@ -40,10 +40,35 @@ public:
         }
         return dp[start][end]=ans;
     }
+
+    int solveUsingtab(int start,int end){
+        int n=end;
+        vector<vector<int>>dp(n+2,vector(n+2,0));
+        for(int start=n;start>=1;start--){
+            for(int end=1;end<=n;end++){
+                  int ans=INT_MAX;
+                  if(start>=end){
+                    continue;
+                  }
+                  else{
+                     for(int i=start;i<=end;i++){
+                          ans=min(ans,i+max(dp[start][i-1],dp[i+1][end]));
+                        }
+                      dp[start][end]=ans;
+                  }
+                
+        }
+        
+        }
+        // kabhi kya return krna hei doubt ho toh intial fxn call dekh lena 
+        // tabulation wale fxn mein
+        return dp[1][n];
+        }
+    
     int getMoneyAmount(int n) {
       // int ans = solveUsingRecursion(1,n);
       vector<vector<int>> dp(n+1,vector<int>(n+1,-1));
-      int ans=solveUsingMem(1,n,dp);
+      int ans=solveUsingtab(1,n);
        return ans; 
     }
 };
