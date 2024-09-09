@@ -37,6 +37,23 @@ public:
         return dp[curr][prev+1];
         
     }
+   int solveUsingTab(vector<int>&nums){
+    vector<vector<int>> dp(nums.size()+1,vector<int>(nums.size()+1,0));
+    for(int curr=nums.size()-1;curr>=0;curr--){
+        for(int prev=curr-1;prev>=-1;prev--){
+                    int include = 0;
+
+                if (prev == -1 || nums[curr] > nums[prev]) {
+                    include = 1 +  dp[curr + 1][curr+1];
+                }
+                // exclude krna hei
+                int exclude = 0 +  dp[curr + 1][prev+1];
+                dp[curr][prev+1]= max(include, exclude);
+               
+        }
+    }
+    return dp[0][0];
+   }
     int lengthOfLIS(vector<int>& nums) {
         int curr = 0;
         int prev = -1; // kyuki muje prev sey compare krna hei aur dekhna hei
@@ -44,7 +61,7 @@ public:
         // include krna chaye kei nhi
        // int ans = solveUsingRecursion(nums, curr, prev);
         vector<vector<int>> dp(nums.size(), vector<int>(nums.size(), -1));
-       int ans=solveUsingMemo(nums,curr,prev,dp);
+       int ans=solveUsingTab(nums);
         return ans;
     }
 };
