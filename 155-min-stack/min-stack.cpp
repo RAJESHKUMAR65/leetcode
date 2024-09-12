@@ -1,42 +1,45 @@
 class MinStack {
 public:
+// vector bnaya hei pair ka  phele value normal value of stack dekha raha hei
+/// dursra value aabtak ka minimum dekha raha hei
    vector<pair<int,int>> st;
     MinStack() {
         
     }
     
     void push(int val) {
-        if(st.empty())
-        {
-            pair<int,int> p;
-            p.first=val;
-            p.second=val;
+        if(st.empty()){
+            pair<int,int>p=make_pair(val,val);
             st.push_back(p);
         }
-        else
-        {
-            pair<int,int> p;
+        else{
+            pair<int,int>p;
             p.first=val;
-            int purna_min=st.back().second;
-            p.second=min(val,purna_min);
+            p.second=min(val,st.back().second);
             st.push_back(p);
         }
     }
     
     void pop() {
-         st.pop_back();
-        
+       st.pop_back(); 
     }
     
     int top() {
-         pair<int,int> rightmostpair=st.back();
-         return rightmostpair.first;
-        
+        if(st.empty()){
+             return -1;
+        }else{
+           return st.back().first;
+        }
+       
     }
     
     int getMin() {
-       pair<int,int> rightmostpair=st.back();
-         return rightmostpair.second; 
+        if(st.empty()){
+             return -1;
+        }else{
+            return st.back().second;
+        }
+        
     }
 };
 
