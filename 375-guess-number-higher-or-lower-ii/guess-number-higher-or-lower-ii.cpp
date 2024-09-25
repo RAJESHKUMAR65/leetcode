@@ -27,10 +27,27 @@ public:
    dp[start][end]=ans;
    return dp[start][end];
    }
+   int solveUsingTab(int n,int start,int end){
+    vector<vector<int>>dp(n+1,vector<int>(n+1,0));
+
+    for(int start=n;start>=0;start--){
+        for(int end=0;end<=n;end++){
+        if(start<end){
+               
+            int ans=INT_MAX;
+          for(int i=start;i<=end;i++){
+           ans=min(ans,i+max(solveUsingMemo(n,start,i-1,dp),solveUsingMemo(n,i+1,end,dp)));}
+          dp[start][end]=ans;
+        }
+     }
+    }
+    return dp[0][n];
+
+   }
     int getMoneyAmount(int n) {
        // int ans=solveUsingRecursion(n,1,n);
        vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
-       int ans=solveUsingMemo(n,0,n,dp);
+       int ans=solveUsingTab(n,0,n);
         return ans;
     }
 };
