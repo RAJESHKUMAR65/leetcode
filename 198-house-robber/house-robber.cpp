@@ -22,10 +22,23 @@ public:
     dp[i]=ans;
     return ans;
    }
+   int bottomup(vector<int>&nums){
+    vector<int> dp(nums.size()+10,0);
+    for(int i=nums.size()-1;i>=0;i--){
+        
+            int include=nums[i]+dp[i+2];
+            int exclude=0+dp[i+1];
+            int ans=max(include,exclude);
+            dp[i]=ans;
+         
+       
+    }
+    return dp[0];
+   }
    
     int rob(vector<int>& nums) {
         vector<int>dp(nums.size(),-1);
-        int ans= memo(nums,0,dp);
+        int ans= bottomup(nums);
         return ans;
     }
 };
