@@ -23,17 +23,23 @@ public:
     return ans;
    }
    int bottomup(vector<int>&nums){
-    vector<int> dp(nums.size()+10,0);
+    int next=0;
+    int curr=0;
+    int prev=0;
     for(int i=nums.size()-1;i>=0;i--){
         
-            int include=nums[i]+dp[i+2];
-            int exclude=0+dp[i+1];
+            int include=nums[i]+next;
+            int exclude=0+curr;
             int ans=max(include,exclude);
-            dp[i]=ans;
-         
+            prev=ans;
+           next =curr;
+           curr=prev;
+
+        }
+        return prev;
        
-    }
-    return dp[0];
+    
+    
    }
    
     int rob(vector<int>& nums) {
