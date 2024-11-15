@@ -32,11 +32,27 @@ public:
           dp[n]=final;
           return dp[n];
     }
+
+    int solveUsingtab(vector<int>&arr,int n){
+        vector<int>dp(n+1,INT_MAX);
+        dp[0]=0;
+        for(int i=1;i<=n;i++){
+                   int final=INT_MAX;
+          for(int j=0;j<arr.size();j++){
+            int ans=solveUsingRecursion(arr,i-arr[j],dp);
+            if(ans!=INT_MAX){
+                 final=min(final,ans+1);
+            }
+          }
+          dp[i]=final;
+        }
+      return dp[n];
+    }
    
     int numSquares(int n) {
         vector<int>dp(n+1,-1);
         vector<int> arr=perfectSquare(n);
-        int ans=solveUsingRecursion(arr,n,dp);
+        int ans=solveUsingtab(arr,n);
         return ans;
        
     }
