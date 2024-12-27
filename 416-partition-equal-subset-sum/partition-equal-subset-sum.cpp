@@ -1,30 +1,30 @@
 class Solution {
 public:
     bool isEqualSubsetSum(vector<int>&nums,int i,int target){
-        if(target<0){
-            return false;
-        }
-        if(i>=nums.size()&&target==0){
-            return true;
-        }
-        if(target !=0 && i>=nums.size()){
-            return false;
-        }
+       if(i>=nums.size()){
+        return false;
+       }
+       if(target<0){
+        return false;
+       }
+       if(target==0){
+        return true;
+       }
         int include=isEqualSubsetSum(nums,i+1,target-nums[i]);
         int exclude=0+isEqualSubsetSum(nums,i+1,target);
         return (include||exclude);
 
     }
      bool isEqualSubsetSum_memo(vector<int>&nums,int i,int target,vector<vector<int>>&dp){
-        if(target<0){
-            return false;
-        }
-        if(i>=nums.size()&&target==0){
-            return true;
-        }
-        if(target !=0 && i>=nums.size()){
-            return false;
-        }
+        if(i>=nums.size()){
+        return false;
+       }
+       if(target<0){
+        return false;
+       }
+       if(target==0){
+        return true;
+       }
         if(dp[i][target]!=-1){
             return dp[i][target];
         }
@@ -33,6 +33,9 @@ public:
         return dp[i][target]=(include||exclude);
 
     }
+    // bool isEqualSubsetSum_tab(vector<int>&nums,int target){
+    //     vector<vector<int>>dp(nums.size(),vector<int>(target+1,0));
+    // }
     bool canPartition(vector<int>& nums) {
         int Total_sums=0;
         for(int i=0;i<nums.size();i++){
