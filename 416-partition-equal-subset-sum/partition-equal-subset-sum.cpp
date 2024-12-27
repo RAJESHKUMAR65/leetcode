@@ -33,9 +33,26 @@ public:
         return dp[i][target]=(include||exclude);
 
     }
-    // bool isEqualSubsetSum_tab(vector<int>&nums,int target){
-    //     vector<vector<int>>dp(nums.size(),vector<int>(target+1,0));
-    // }
+    bool isEqualSubsetSum_tab(vector<int>&nums,int target){
+        vector<vector<int>>dp(nums.size()+1,vector<int>(target+1,0));
+        for(int i=0;i<nums.size();i++){
+            dp[i][0]=1;
+        }
+        for(int i=nums.size()-1;i>=0;i--){
+            for(int j=1;j<=target;j++){
+                bool include=0;
+                if(j-nums[i]>=0 ){
+                   include=dp[i+1][j-nums[i]];
+                   }
+                   bool exclude=0+dp[i+1][j];
+                   dp[i][j]=(include||exclude);
+                }
+                
+            }
+              return dp[0][target];
+        }
+      
+    
     bool canPartition(vector<int>& nums) {
         int Total_sums=0;
         for(int i=0;i<nums.size();i++){
@@ -46,7 +63,7 @@ public:
         }
        int sums=Total_sums/2;
        vector<vector<int>>dp(nums.size(),vector<int>(sums+1,-1));
-       int ans=isEqualSubsetSum_memo(nums,0,sums,dp);
+       int ans=isEqualSubsetSum_tab(nums,sums);
        return ans;
      
       
