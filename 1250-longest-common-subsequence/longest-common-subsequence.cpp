@@ -49,13 +49,13 @@ public:
             dp[i][j]=ans;
             }
         }
-        return dp[text1.size()-1][text2.size()-1];
+        return dp[0][0];
     }
     int longestCommonSubsequence(string text1, string text2) {
         int i=0;
         int j=0;
         vector<vector<int>>dp(text1.size()+1,vector<int>(text2.size(),-1));
-        int ans=solveUsingMemo(text1,text2,i,j,dp);
+        int ans=solveUsingTab(text1,text2);
         return ans;
     }
 };
