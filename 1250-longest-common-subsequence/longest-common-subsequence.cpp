@@ -1,89 +1,61 @@
 class Solution {
 public:
-
     int solveUsingRecursion(string text1,string text2,int i,int j){
-        if(i>=text1.length() || j>=text2.length()){
+        if(i==text1.length()){
             return 0;
-
         }
-        // agar character same hein
-        int ans=0;
+        if(j==text2.length()){
+            return 0;
+        }
+        int ans=INT_MIN;
         if(text1[i]==text2[j]){
-           ans=1+solveUsingRecursion(text1,text2,i+1,j+1);
+            ans=1+solveUsingRecursion(text1,text2,i+1,j+1);
         }
         else{
-           ans= 0+max(solveUsingRecursion(text1,text2,i+1,j),solveUsingRecursion(text1,text2,i,j+1));
+            ans=0+max(solveUsingRecursion(text1,text2,i,j+1),solveUsingRecursion(text1,text2,i+1,j));
         }
-
         return ans;
     }
-    int solveUsingMemo(string &text1,string &text2,int i,int j,vector<vector<int>> &dp){
-
-        if(i>=text1.length() || j>=text2.length()){
+    int solveUsingMemo(string &text1,string &text2,int i,int j,vector<vector<int>>&dp){
+         if(i==text1.length()){
             return 0;
-
         }
-        // agar character same hein
-       
-         if(dp[i][j]!=-1){
+        if(j==text2.length()){
+            return 0;
+        }
+        if(dp[i][j]!=-1){
             return dp[i][j];
-         }
-            int ans=0;
+        }
+        int ans=0;
         if(text1[i]==text2[j]){
-           ans=1+solveUsingMemo(text1,text2,i+1,j+1,dp);
+            ans=1+solveUsingMemo(text1,text2,i+1,j+1,dp);
         }
         else{
-           ans= 0+max(solveUsingMemo(text1,text2,i+1,j,dp),solveUsingMemo(text1,text2,i,j+1,dp));
+            ans=0+max(solveUsingMemo(text1,text2,i,j+1,dp),solveUsingMemo(text1,text2,i+1,j,dp));
         }
-        dp[i][j]=ans;
-
-        return dp[i][j];
+        return dp[i][j]=ans;
     }
-     
-  int solveUsingTab(string &text1,string &text2){
-    vector<vector<int>> dp(text1.size()+1,vector<int>(text2.size()+1,0));
-    for(int i=text1.size()-1;i>=0;i--){
-        for(int j=text2.size()-1;j>=0;j--){
-             
-                 int ans=0;
-                
-                        if(text1[i]==text2[j]){
-                        ans=1+dp[i+1][j+1];
-                        }
-                        else{
-                        ans= 0+max(dp[i+1][j],dp[i][j+1]);
-                        }
-                        dp[i][j]=ans ;
+    int solveUsingTab(string text1,string text2){
+        vector<vector<int>>dp(text1.size()+5,vector<int>(text2.size()+5,0));
+        for(int i=text1.size()-1;i>=0;i--){
+            for(int j=text2.size()-1;j>=0;j--){
+                int ans=INT_MIN;
+             if(text1[i]==text2[j]){
+            ans=1+dp[i+1][j+1];
             }
-    }
-     return dp[0][0];
-  }
-  int solveUsingSo(string &text1,string &text2){
-    vector<int > curr(text2.size()+1,0);
-    vector<int> next(text2.size()+1,0);
-    for(int i=text1.size()-1;i>=0;i--){
-        for(int j=text2.size()-1;j>=0;j--){
-             
-                 int ans=0;
-                
-                        if(text1[i]==text2[j]){
-                        ans=1+next[j+1];
-                        }
-                        else{
-                        ans= 0+max(next[j],curr[j+1]);
-                        }
-                        curr[j]=ans ;
+          else{
+               ans=0+max(dp[i][j+1],dp[i+1][j]);
             }
-            next=curr;
+            dp[i][j]=ans;
+            }
+        }
+        return dp[text1.size()-1][text2.size()-1];
     }
-     return curr[0];
-  }
     int longestCommonSubsequence(string text1, string text2) {
         int i=0;
         int j=0;
-       // return solveUsingRecursion(text1,text2,i,j);
-        vector<vector<int>> dp(text1.length(),vector<int>(text2.length(),-1));
-      //  return solveUsingMemo(text1,text2,i,j,dp);
-      return solveUsingSo(text1,text2);
+        vector<vector<int>>dp(text1.size()+1,vector<int>(text2.size(),-1));
+        int ans=solveUsingMemo(text1,text2,i,j,dp);
+        return ans;
     }
 };
