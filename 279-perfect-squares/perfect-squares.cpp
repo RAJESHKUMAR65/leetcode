@@ -1,59 +1,43 @@
 class Solution {
 public:
-    vector<int> perfectSquare(int n){
-    vector<int> perfect_array;
-      for(int i=1;i<=n;i++){
-            int j=sqrt(i);
-            if(j*j==i){
-               perfect_array.push_back(i);
-            }
-      }
-      return perfect_array;
-    }
-    int solveUsingRecursion(vector<int>&arr,int n,vector<int>&dp){
-          if(n==0){
-            return 0;
+   int solveUsingRecursion(int n){
+       if(n==0){
+        return 0;
+       }
+       if(n<0){
+        return INT_MAX;
+       }
+       int ans=INT_MAX;
+       for(int i=1;i*i<=n+1;i++){
+         int recans=solveUsingRecursion(n-i*i);
+          if(recans!=INT_MAX){
+            ans=min(ans,1+recans);
           }
-          if(n<0){
-            return INT_MAX;
+       }
+       return ans;
+   }
+   int solveUsingMemo(int n,vector<int>&dp){
+       if(n==0){
+        return 0;
+       }
+       if(n<0){
+        return INT_MAX;
+       }
+       if(dp[n]!=-1){
+        return dp[n];
+       }
+       int ans=INT_MAX;
+       for(int i=1;i*i<=n+1;i++){
+         int recans=solveUsingMemo(n-i*i,dp);
+          if(recans!=INT_MAX){
+            ans=min(ans,1+recans);
           }
-         if(dp[n]!=-1){
-            return dp[n];
-
-         }
-         
-          int final=INT_MAX;
-          for(int i=0;i<arr.size();i++){
-            int ans=solveUsingRecursion(arr,n-arr[i],dp);
-            if(ans!=INT_MAX){
-                 final=min(final,ans+1);
-            }
-          }
-          dp[n]=final;
-          return dp[n];
-    }
-
-    int solveUsingtab(vector<int>&arr,int n){
-        vector<int>dp(n+1,INT_MAX);
-        dp[0]=0;
-        for(int i=1;i<=n;i++){
-                   int final=INT_MAX;
-          for(int j=0;j<arr.size();j++){
-            int ans=solveUsingRecursion(arr,i-arr[j],dp);
-            if(ans!=INT_MAX){
-                 final=min(final,ans+1);
-            }
-          }
-          dp[i]=final;
-        }
-      return dp[n];
-    }
-   
+       }
+       return dp[n]=ans;
+   }
     int numSquares(int n) {
         vector<int>dp(n+1,-1);
-        vector<int> arr=perfectSquare(n);
-        int ans=solveUsingtab(arr,n);
+        int ans=solveUsingMemo(n,dp);
         return ans;
-       
     }
 };
