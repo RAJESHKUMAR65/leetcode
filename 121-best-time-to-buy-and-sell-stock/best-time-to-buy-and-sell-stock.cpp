@@ -1,30 +1,21 @@
 class Solution {
 public:
-   void rec(vector<int>& prices,int i,int &minPrice ,int &maxProfit)
-   {// base case
-       if(i==prices.size())
-       {
-        return;
-       }
-     // ek case
-     if(prices[i]<minPrice)
-     {
-        minPrice=prices[i];
-     }
-     int todayProfit=prices[i]-minPrice;
-     if(todayProfit>maxProfit)
-     {
-       maxProfit=todayProfit;
-     }
-     rec(prices,i+1,minPrice,maxProfit);
-
-   }
-   
-    int maxProfit(vector<int>& prices) {
+    int maxProfit(vector<int>& prices) 
+    {
+        int n=prices.size();
+        vector<int>rightGreater(n,-1);
+        rightGreater[n-1]=prices[n-1];
+        for(int i=n-2;i>=0;i--){
+            rightGreater[i]=max(rightGreater[i+1],prices[i]);
+        }
+        int profit=INT_MIN;
+      for(int i=0;i<n;i++){
+          if(prices[i]<rightGreater[i]){
+            profit=max(profit,rightGreater[i]-prices[i]);
+          }
+      }
+      if(profit!=INT_MIN) return profit;
+      return 0;
      
-        int minPrice=INT_MAX;
-        int maxProfit=INT_MIN;
-        rec(prices,0,minPrice,maxProfit);
-        return maxProfit;
     }
 };
