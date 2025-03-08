@@ -2,9 +2,9 @@ class Solution {
 public:
     string removeOccurrences(string s, string part) {
         while(s.find(part)!=string::npos){
-             int i=s.find(part);
-             s.erase(i,part.length());
+            s.erase(s.find(part),part.length());
         }
         return s;
     }
+
 };
