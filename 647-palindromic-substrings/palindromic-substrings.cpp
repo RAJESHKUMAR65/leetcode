@@ -1,25 +1,21 @@
 class Solution {
 public:
-   bool checkPalindrome(int i,int j,string &s){
-    while(i<=j){
-        if(s[i]==s[j]){
-            i++;
-            j--;
-        }
-        else{
-            return false;
-        }
+ int expand(string &s,int i,int j){
+    int count=0;
+    while(i>=0 && j<s.length() && s[i]==s[j]){
+        count++;
+        i--;
+        j++;
     }
-    return true;
-   }
+    return count;
+ }
     int countSubstrings(string s) {
-        int count=0;
-        for(int i=0;i<s.length();i++){
-            for(int j=i;j<s.length();j++){
-                  if(checkPalindrome(i,j,s)) count++;
-            }
+        int totalcount=0;
+        for(int center=0;center<s.length();center++){
+            int oddkaans=expand(s,center,center);
+            int evenkaans=expand(s,center,center+1);
+            totalcount+=oddkaans+evenkaans;
         }
-        return count;
+        return totalcount;
     }
-     
 };
