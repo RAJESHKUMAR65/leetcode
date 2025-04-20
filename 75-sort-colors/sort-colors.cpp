@@ -3,27 +3,21 @@ public:
     void sortColors(vector<int>& nums) {
         int i=0;
         int j=nums.size()-1;
-        int index=0;
-        while(index<=j)
-        {
-            if(nums[index]==0)
-            {
-                swap(nums[index],nums[i]);
+        int k=0;
+        while(k<=j){
+            if(nums[k]==0){
+                swap(nums[i],nums[k]);
                 i++;
-                index++;
+                k++;
             }
-            else if(nums[index]==2)
-            {
-                swap(nums[index],nums[j]);
+            else if(nums[k]==2){
+                swap(nums[j],nums[k]);
                 j--;
-
             }
-            else
-            {
-                  index++;
+            else{
+                k++;
             }
             
         }
-          
     }
 };
