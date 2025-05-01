@@ -1,21 +1,16 @@
 class Solution {
 public:
-    int maxProfit(vector<int>& prices) 
-    {
-        int n=prices.size();
-        vector<int>rightGreater(n,-1);
-        rightGreater[n-1]=prices[n-1];
-        for(int i=n-2;i>=0;i--){
-            rightGreater[i]=max(rightGreater[i+1],prices[i]);
-        }
-        int profit=INT_MIN;
-      for(int i=0;i<n;i++){
-          if(prices[i]<rightGreater[i]){
-            profit=max(profit,rightGreater[i]-prices[i]);
-          }
-      }
-      if(profit!=INT_MIN) return profit;
-      return 0;
-     
+   void solveUsingRecursion(vector<int>&prices,int i,int &minPrice,int &MaxProfit){
+      if(i>=prices.size()) return;
+      if(prices[i]<minPrice) minPrice=prices[i];
+      int todayprofit=prices[i]-minPrice;
+      if(todayprofit>MaxProfit) MaxProfit=todayprofit;
+      solveUsingRecursion(prices,i+1,minPrice,MaxProfit);
+   }
+    int maxProfit(vector<int>& prices) {
+        int minPrice=INT_MAX;
+        int maxProfit=INT_MIN;
+        solveUsingRecursion(prices,0,minPrice,maxProfit);
+        return maxProfit;
     }
 };
