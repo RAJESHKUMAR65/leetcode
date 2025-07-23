@@ -24,4 +24,6 @@ public:
      reverse(nums.begin()+gola_index+1,nums.end());
 
     }
+    //sc=O(n)
+    //tc=O(n)
 };
