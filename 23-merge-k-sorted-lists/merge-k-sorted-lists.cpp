@@ -59,6 +59,7 @@ public:
             }
         }
         else{
+            
             //first element nhi hei
             tail->next=top;
             tail=top;
