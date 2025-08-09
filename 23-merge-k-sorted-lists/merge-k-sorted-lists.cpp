@@ -56,6 +56,7 @@ public:
             if(tail->next!=NULL)
             {
                 minHeap.push(tail->next);
+                
             }
         }
         else{
