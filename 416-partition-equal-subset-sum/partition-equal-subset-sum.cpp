@@ -28,6 +28,26 @@ bool solveUsingMemo(int i,vector<int>&nums,int target,vector<vector<int>>&dp){
     return dp[i][target];
     
 }
+bool solveUsingTab(vector<int>&nums,int target){
+    vector<vector<int>>dp(nums.size()+1,vector<int>(target+1,0));
+    int n=nums.size();
+    for(int i=0;i<nums.size();i++){
+        dp[i][0]=1;
+    }
+    for(int index=n-1;index>=0;index--){
+        for(int t=1;t<=target;t++){
+            int include=0;
+            if(t-nums[index]>=0){
+             include=dp[index+1][t-nums[index]];
+            }
+            
+            int exclude=dp[index+1][t];
+            dp[index][t]= include||exclude;
+            
+        }
+    }
+     return dp[0][target];
+}
     bool canPartition(vector<int>& nums) {
         int sum=0;
         for(int i=0;i<nums.size();i++){
@@ -42,7 +62,7 @@ bool solveUsingMemo(int i,vector<int>&nums,int target,vector<vector<int>>&dp){
         // memo
         int target=sum/2;
         vector<vector<int>>dp(nums.size()+1,vector<int>(target+1,-1));
-      bool ans=solveUsingMemo(0,nums,target,dp);
+      bool ans=solveUsingTab(nums,target);
       return ans;
     }
 };
