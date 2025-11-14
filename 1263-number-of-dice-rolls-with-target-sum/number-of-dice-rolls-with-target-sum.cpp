@@ -27,10 +27,27 @@ public:
          dp[n][target]=ans;
          return dp[n][target];
     }
+    int solveUsingTab(int n,int k,int target){
+        vector<vector<int>>dp(n+1,vector<int>(target+1,0));
+        dp[0][0]=1;
+        for(int i=1;i<=n;i++){
+            for(int t=1;t<=target;t++){
+                int ans=0;
+                for(int j=1;j<=k;j++){
+                    if(t-j>=0){
+                ans=(ans+dp[i-1][t-j])%mod; }
+                }
+                dp[i][t]=ans;
+                
+            }
+        }
+        return dp[n][target];
+    }
     int numRollsToTarget(int n, int k, int target) {
      // int ans=solveUsingRecursion(n,k,target);
-     vector<vector<int>>dp(n+1,vector<int>(target+1,-1));
-     int ans=solveUsingMemo(n,k,target,dp);
+    // vector<vector<int>>dp(n+1,vector<int>(target+1,-1));
+    // int ans=solveUsingMemo(n,k,target,dp);
+    int ans=solveUsingTab(n,k,target);
       return ans;  
     }
 };
