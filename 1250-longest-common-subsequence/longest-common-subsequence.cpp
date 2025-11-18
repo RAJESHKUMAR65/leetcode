@@ -1,46 +1,37 @@
 class Solution {
 public:
- int solveUsingRecursion(string &text1,string text2,int i,int j){
-    if(i==text1.size()){
-        return 0;
-    }
-    if(j==text2.size()){
-        return 0;
-    }
-    int ans=0;
+ int solveUsingRecursion(int i,int j,string &text1,string &text2){
+    if(i>=text1.size())return 0;
+    if(j>=text2.size())return 0;
+    int maxLength=0;
     if(text1[i]==text2[j]){
-       ans=1+solveUsingRecursion(text1,text2,i+1,j+1);
+        maxLength=1+solveUsingRecursion(i+1,j+1,text1,text2);
+    }else{
+        maxLength=0+max(solveUsingRecursion(i+1,j,text1,text2),solveUsingRecursion(i,j+1,text1,text2));
     }
-    else{
-         ans=0+max(solveUsingRecursion(text1,text2,i+1,j),solveUsingRecursion(text1,text2,i,j+1));
-    }
-    return ans;
+    return maxLength;
  }
 
- int solveUsingMemo(string &text1,string text2,int i,int j,vector<vector<int>>&dp){
-    if(i==text1.size()){
-        return 0;
-    }
-    if(j==text2.size()){
-        return 0;
-    }
+int solveUsingMemo(int i,int j,string &text1,string &text2,vector<vector<int>>&dp){
+    if(i>=text1.size())return 0;
+    if(j>=text2.size())return 0;
+    int maxLength=0;
     if(dp[i][j]!=-1){
         return dp[i][j];
     }
-    int ans=0;
     if(text1[i]==text2[j]){
-       ans=1+solveUsingMemo(text1,text2,i+1,j+1,dp);
+        maxLength=1+solveUsingMemo(i+1,j+1,text1,text2,dp);
+    }else{
+        maxLength=0+max(solveUsingMemo(i+1,j,text1,text2,dp),solveUsingMemo(i,j+1,text1,text2,dp));
     }
-    else{
-         ans=0+max(solveUsingMemo(text1,text2,i+1,j,dp),solveUsingMemo(text1,text2,i,j+1,dp));
-    }
-    return dp[i][j]=ans;
+     dp[i][j]=maxLength;
+     return dp[i][j];
  }
- 
-
     int longestCommonSubsequence(string text1, string text2) {
-        vector<vector<int>>dp(text1.size()+1,vector<int>(text2.size(),-1));
-        int ans=solveUsingMemo(text1,text2,0,0,dp);
+
+       // int ans=solveUsingRecursion(0,0,text1,text2);
+       vector<vector<int>>dp(text1.size()+1,vector<int>(text2.size()+1,-1));
+       int ans=solveUsingMemo(0,0,text1,text2,dp);
         return ans;
     }
 };
