@@ -44,12 +44,32 @@ int solveUsingMemo(int i,int j,string &text1,string &text2,vector<vector<int>>&d
     }
     return dp[0][0];
  }
+ int solveUsingSo(string &text1,string &text2){
+    int n1=text1.size();
+    int n2=text2.size();
+    vector<int>curr(n2+1,0);
+    vector<int>next(n2+1,0);
+    for(int i=n1-1;i>=0;i--){
+        for(int j=n2-1;j>=0;j--){
+            int MaxLength=0;
+            if(text1[i]==text2[j]){
+                MaxLength=1+next[j+1];
+            }else{
+                MaxLength=0+max(next[j],curr[j+1]);
+            }
+            curr[j]=MaxLength;
+        }
+        next=curr;
+    }
+    return curr[0];
+ }
     int longestCommonSubsequence(string text1, string text2) {
 
        // int ans=solveUsingRecursion(0,0,text1,text2);
        vector<vector<int>>dp(text1.size()+1,vector<int>(text2.size()+1,-1));
       // int ans=solveUsingMemo(0,0,text1,text2,dp);
-      int ans=solveUsingtab(text1,text2);
+     // int ans=solveUsingtab(text1,text2);
+     int ans=solveUsingSo(text1,text2);
         return ans;
     }
 };
