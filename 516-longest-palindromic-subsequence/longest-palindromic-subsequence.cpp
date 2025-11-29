@@ -42,6 +42,23 @@ public:
         }
         return dp[0][0];
     }
+    int solveUsingSo(string &s1,string &s2){
+      vector<int>curr(s2.length()+1,0);
+      vector<int>next(s2.length()+1,0);
+      for(int i=s1.length()-1;i>=0;i--){
+        for(int j=s2.length()-1;j>=0;j--){
+            int len=0;
+            if(s1[i]==s2[j]){
+                len=1+next[j+1];
+            }else{
+                len=0+max(next[j],curr[j+1]);
+            }
+            curr[j]=len;
+        }
+        next=curr;
+      }
+      return curr[0];
+    }
 
     int longestPalindromeSubseq(string s) {
        string s1=s;
@@ -52,7 +69,7 @@ public:
       // int ans=solveUsingRecursion(s1,s2,i,j);
      // vector<vector<int>>dp(s1.size()+1,vector<int>(s2.size()+1,-1));
     //int ans=solveUsingMemo(s1,s2,i,j,dp);
-    int ans=solveUsingTab(s1,s2);
+    int ans=solveUsingSo(s1,s2);
        return ans;
         
     }
