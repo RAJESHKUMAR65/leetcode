@@ -40,6 +40,33 @@ public:
         dp[i][j]=ans;
         return ans;
     }
+    int solveUsingTab(string & word1 ,string & word2){
+        vector<vector<int>>dp(word1.length()+1,vector<int>(word2.length()+1,0));
+    
+            for(int j=0;j<word2.length();j++){
+                dp[word1.length()][j]=word2.length()-j;
+            }
+            for(int i=0;i<word1.length();i++){
+                dp[i][word2.length()]=word1.length()-i;
+            }
+
+            for(int i=word1.length()-1;i>=0;i--){
+                for(int j=word2.length()-1;j>=0;j--){
+                    int ans=0;
+                    if(word1[i]==word2[j]){
+                        ans=0+dp[i+1][j+1];
+                    }else{
+                        int inserted=1+dp[i][j+1];
+                        int deleted=1+dp[i+1][j];
+                        int replaced=1+dp[i+1][j+1];
+                        ans=min({inserted,deleted,replaced});
+                    }
+                  dp[i][j]=ans;  
+                }
+            }
+            return dp[0][0];
+        
+    }
     int minDistance(string word1, string word2) {
 
         if(word1.length()==0)return word2.length();
@@ -48,7 +75,7 @@ public:
         int j=0;
         vector<vector<int>>dp(word1.length()+1,vector<int>(word2.length()+1,-1));
         //int ans=solveUsingRecursion(word1,word2,i,j);
-        int ans=solveUsingMemo(word1,word2,i,j,dp);
+        int ans=solveUsingTab(word1,word2);
         return ans;
     }
 };
