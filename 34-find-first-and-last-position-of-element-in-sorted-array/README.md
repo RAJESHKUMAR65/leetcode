@@ -24,3 +24,4 @@
 	<li><code>nums</code> is a non-decreasing array.</li>
 	<li><code>-10<sup>9</sup>&nbsp;&lt;= target&nbsp;&lt;= 10<sup>9</sup></code></li>
 </ul>
+this dsa question is solved by rajesh kumar using c++ language which is mid level language .Rajesgh kumar has proved him self to be a good competitive programmer.
