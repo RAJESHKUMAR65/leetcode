@@ -8,11 +8,14 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+
  class compare{
     public:
-    bool operator()(ListNode *a ,ListNode *b){
-        return a->val > b->val;
-    }
+    bool operator()(Listval;
+
+    }Node *a ,ListNode *b){
+        return a->val > b->
  };
 class Solution {
 public:
@@ -29,7 +32,7 @@ public:
     for(int i=0 ;i<k;i++){
         // manine phele check kiya kei linkist ka phela pointer
         //null toh nhi hei
-        //fir usey insert kr diya
+        //fir usey insert kr diya ,cool acha kiya
         if(lists[i]!=NULL)
         {
           minHeap.push(lists[i]);
@@ -56,6 +59,7 @@ public:
             }
         }
         else{
+            
             //first element nhi hei
             tail->next=top;
             tail=top;
